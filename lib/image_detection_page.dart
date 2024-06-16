@@ -1,14 +1,16 @@
 import 'dart:async';
+
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
-class ImageDetectionPage extends StatefulWidget {
+class NetworkImageDetectionPage extends StatefulWidget {
   @override
-  _ImageDetectionPageState createState() => _ImageDetectionPageState();
+  _NetworkImageDetectionPageState createState() =>
+      _NetworkImageDetectionPageState();
 }
 
-class _ImageDetectionPageState extends State<ImageDetectionPage> {
+class _NetworkImageDetectionPageState extends State<NetworkImageDetectionPage> {
   late ARKitController arkitController;
   Timer? timer;
   bool anchorWasFound = false;
@@ -22,31 +24,37 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Пример распознавания')),
-        body: Container(
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              ARKitSceneView(
-                detectionImagesGroupName: 'AR Resources',
-                onARKitViewCreated: onARKitViewCreated,
+    appBar: AppBar(title: const Text('Распознвавание Марса')),
+    body: Container(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ARKitSceneView(
+            detectionImages: const [
+              ARKitReferenceImage(
+                name:
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg',
+                physicalWidth: 0.2,
               ),
-              anchorWasFound
-                  ? Container()
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Откройте сайт Википедии о нашей планете Земля и наведите на фото.',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(color: Colors.white),
-                      ),
-                    ),
             ],
+            onARKitViewCreated: onARKitViewCreated,
           ),
-        ),
-      );
+          anchorWasFound
+              ? Container()
+              : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Наведите камеру на фотографию Марса из статьи о Марсе в Википедии.',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -59,7 +67,8 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
 
       final material = ARKitMaterial(
         lightingModelName: ARKitLightingModel.lambert,
-        diffuse: ARKitMaterialProperty.image('images/earth2.jpg'),
+        diffuse: ARKitMaterialProperty.image(
+            'https://www.classe.cornell.edu/~seb/celestia/marsc-1k.jpg'),
       );
       final sphere = ARKitSphere(
         materials: [material],
@@ -70,7 +79,7 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
       final node = ARKitNode(
         geometry: sphere,
         position:
-            vector.Vector3(earthPosition.x, earthPosition.y, earthPosition.z),
+        vector.Vector3(earthPosition.x, earthPosition.y, earthPosition.z),
         eulerAngles: vector.Vector3.zero(),
       );
       arkitController.add(node);

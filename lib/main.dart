@@ -32,11 +32,11 @@ class MyApp extends StatelessWidget {
             .push<void>(MaterialPageRoute(builder: (c) => PhysicsPage())),
       ),
       Sample(
-        'Распознавание планеты Земля',
-        'Распознаем фото нашей планеты и делаем его объёмным',
+        'Распознавание планеты Марс',
+        'Распознаем фото планеты Марс и делаем его объёмным',
         Icons.collections,
             () => Navigator.of(context).push<void>(
-            MaterialPageRoute(builder: (c) => ImageDetectionPage())),
+            MaterialPageRoute(builder: (c) => NetworkImageDetectionPage())),
       ),
     ];
 
