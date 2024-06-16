@@ -36,7 +36,7 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Point the camera at the earth image from the article about Earth on Wikipedia.',
+                        'Откройте сайт Википедии о нашей планете Земля и наведите на фото.',
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall

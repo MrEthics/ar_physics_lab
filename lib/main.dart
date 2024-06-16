@@ -1,4 +1,3 @@
-import 'body_tracking_page.dart';
 import 'earth_page.dart';
 import 'image_detection_page.dart';
 import 'measure_page.dart';
@@ -38,13 +37,6 @@ class MyApp extends StatelessWidget {
         Icons.collections,
             () => Navigator.of(context).push<void>(
             MaterialPageRoute(builder: (c) => ImageDetectionPage())),
-      ),
-      Sample(
-        'Отслеживание движений',
-        'Объект следует за рукой',
-        Icons.person,
-            () => Navigator.of(context)
-            .push<void>(MaterialPageRoute(builder: (c) => BodyTrackingPage())),
       ),
     ];
 
