@@ -1,3 +1,7 @@
+import 'body_tracking_page.dart';
+import 'earth_page.dart';
+import 'image_detection_page.dart';
+import 'measure_page.dart';
 import 'physics_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,17 +12,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final samples = [
       Sample(
+        'Планета Земля',
+        'Небесное тело, макет нашей планеты Земля',
+        Icons.language,
+            () => Navigator.of(context)
+            .push<void>(MaterialPageRoute(builder: (c) => EarthPage())),
+      ),
+      Sample(
+        'Измерения',
+        'Измерения дистанции',
+        Icons.linear_scale,
+            () => Navigator.of(context)
+            .push<void>(MaterialPageRoute(builder: (c) => MeasurePage())),
+      ),
+      Sample(
         'Физика',
-        'Сфера и самолет в динамике и в статике',
+        'Падение сферы на плоскость',
         Icons.file_download,
             () => Navigator.of(context)
             .push<void>(MaterialPageRoute(builder: (c) => PhysicsPage())),
+      ),
+      Sample(
+        'Распознавание планеты Земля',
+        'Распознаем фото нашей планеты и делаем его объёмным',
+        Icons.collections,
+            () => Navigator.of(context).push<void>(
+            MaterialPageRoute(builder: (c) => ImageDetectionPage())),
+      ),
+      Sample(
+        'Отслеживание движений',
+        'Объект следует за рукой',
+        Icons.person,
+            () => Navigator.of(context)
+            .push<void>(MaterialPageRoute(builder: (c) => BodyTrackingPage())),
       ),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AR Physics Lab'),
+        title: const Text('ReadZone'),
       ),
       body:
       ListView(children: samples.map((s) => SampleItem(item: s)).toList()),
